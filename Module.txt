@@ -1,7 +1,7 @@
 Name: CookieConsent
 AntiForgery: enabled
 Author: Orchardizer
-Website: https://github.com/Hazzamanic/orchardizer
+Website: https://github.com/Hazzamanic/mod.cookieconsent
 Version: 1.0
 OrchardVersion: 1.10
 Description: Description for the module
