@@ -1,60 +1,80 @@
 ﻿@model Mod.CookieConsent.Models.CookieConsentSettingsPart
+@{
+    var htmlAttributesLarge = new Dictionary<string, object> {
+        {"class", "text large"}
+    };
+    var htmlAttributeMedium = new Dictionary<string, object> {
+        {"class", "text medium"}
+    };
+    var htmlAttributeSmall = new Dictionary<string, object> {
+        {"class", "text small"}
+    };
+}
 
+@*@Html.TextBox("Text", (string)Model.Text, htmlAttributes)*@
 <fieldset>
     <legend></legend>
     <div>
-        @Html.LabelFor(m => m.Message, T("Message"))
-        @Html.EditorFor(m => m.Message)
-        @Html.ValidationMessage("Message", "*")
-		<span class="hint">Default: ‘This website uses cookies to ensure you get the best experience on our website’</span>
-        <span class="hint">The message shown by the plugin.</span>
+        @Html.EditorFor(m => m.Enabled)
+        <label for="@Html.FieldIdFor(m => m.Enabled)" class="forcheckbox">@T("Show the Cookie Consent pop up on the main site.")</label>
+        @Html.ValidationMessageFor(m => m.Enabled)
+        <span class="hint">@T("If checked, the Cookie Consent popup will be used on the main site.")</span>
     </div>
-    <div>
-        @Html.LabelFor(m => m.Dismiss, T("Dismiss"))
-        @Html.EditorFor(m => m.Dismiss)
-        @Html.ValidationMessage("Dismiss", "*")
-		<span class="hint">Default: ‘Got it!’</span>
-        <span class="hint">The text used on the dismiss button.</span>
-    </div>
-    <div>
-        @Html.LabelFor(m => m.LearnMore, T("Learn More"))
-        @Html.EditorFor(m => m.LearnMore)
-        @Html.ValidationMessage("LearnMore", "*")
-		<span class="hint">Default: ‘More info’</span>
-        <span class="hint">The text shown on the link to the cookie policy (requires the link option to also be set)</span>
-    </div>
-    <div>
-        @Html.LabelFor(m => m.Link, T("Link"))
-        @Html.EditorFor(m => m.Link)
-        @Html.ValidationMessage("Link", "*")
-		<span class="hint">Default: null</span>
-        <span class="hint">The url of your cookie policy. If it’s set to null, the link is hidden.</span>
-    </div>
-    <div>
-        @Html.LabelFor(m => m.Theme, T("Theme"))
-        @Html.EditorFor(m => m.Theme)
-        @Html.ValidationMessage("Theme", "*")
-		<span class="hint">Default: ‘light-floating’</span>
-        <span class="hint">Options: dark-bottom,dark-floating-tada,dark-floating,dark-inline,dark-top,light-bottom,light-floating,light-top</span>
-    </div>
-    <div>
-        @Html.LabelFor(m => m.Path, T("Path"))
-        @Html.EditorFor(m => m.Path)
-        @Html.ValidationMessage("Path", "*")
-		<span class="hint">Default: ‘/’</span>
-        <span class="hint">The path for the consent cookie that Cookie Consent uses, to remember that users have consented to cookies. Use to limit consent to a specific path within your website.</span>
-    </div>
-    <div>
-        @Html.LabelFor(m => m.ExpiryDays, T("Expiry Days"))
-        @Html.EditorFor(m => m.ExpiryDays)
-        @Html.ValidationMessage("ExpiryDate", "*")
-        <span class="hint">The number of days Cookie Consent should store the user’s consent information for.</span>
-    </div>
-    <div>
-        @Html.LabelFor(m => m.Target, T("Target"))
-        @Html.EditorFor(m => m.Target)
-        @Html.ValidationMessage("Target", "*")
-		<span class="hint">Default: _self</span>
-        <span class="hint">The target of the link to your cookie policy. Use to open a link in a new window, or specific frame, if you wish.</span>
+    <div data-controllerid="@Html.FieldIdFor(m => m.Enabled)">
+        <div>
+            @Html.LabelFor(m => m.Message, T("Message"))
+            @Html.TextBoxFor(m => m.Message, htmlAttributesLarge)
+            @Html.ValidationMessage("Message", "*")
+            <span class="hint">Default: ‘This website uses cookies to ensure you get the best experience on our website’</span>
+            <span class="hint">The message shown by the plugin.</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Dismiss, T("Dismiss"))
+            @Html.TextBoxFor(m => m.Dismiss, htmlAttributeMedium)
+            @Html.ValidationMessage("Dismiss", "*")
+            <span class="hint">Default: ‘Got it!’</span>
+            <span class="hint">The text used on the dismiss button.</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.LearnMore, T("Learn More"))
+            @Html.TextBoxFor(m => m.LearnMore, htmlAttributeMedium)
+            @Html.ValidationMessage("LearnMore", "*")
+            <span class="hint">Default: ‘More info’</span>
+            <span class="hint">The text shown on the link to the cookie policy (requires the link option to also be set)</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Link, T("Link"))
+            @Html.TextBoxFor(m => m.Link, htmlAttributesLarge)
+            @Html.ValidationMessage("Link", "*")
+            <span class="hint">Default: null</span>
+            <span class="hint">The url of your cookie policy. If it’s set to null, the link is hidden.</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Theme, T("Theme"))
+            @Html.TextBoxFor(m => m.Theme, htmlAttributeMedium)
+            @Html.ValidationMessage("Theme", "*")
+            <span class="hint">Default: ‘light-floating’</span>
+            <span class="hint">Options: dark-bottom,dark-floating-tada,dark-floating,dark-inline,dark-top,light-bottom,light-floating,light-top</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Path, T("Path"))
+            @Html.TextBoxFor(m => m.Path, htmlAttributeSmall)
+            @Html.ValidationMessage("Path", "*")
+            <span class="hint">Default: ‘/’</span>
+            <span class="hint">The path for the consent cookie that Cookie Consent uses, to remember that users have consented to cookies. Use to limit consent to a specific path within your website.</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ExpiryDays, T("Expiry Days"))
+            @Html.TextBoxFor(m => m.ExpiryDays, htmlAttributeSmall)
+            @Html.ValidationMessage("ExpiryDays", "*")
+            <span class="hint">The number of days Cookie Consent should store the user’s consent information for.</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Target, T("Target"))
+            @Html.TextBoxFor(m => m.Target, htmlAttributeSmall)
+            @Html.ValidationMessage("Target", "*")
+            <span class="hint">Default: _self</span>
+            <span class="hint">The target of the link to your cookie policy. Use to open a link in a new window, or specific frame, if you wish.</span>
+        </div>
     </div>
 </fieldset>

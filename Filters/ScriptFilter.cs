@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿#region Using
 using System.Web.Mvc;
 using Mod.CookieConsent.Models;
 using Orchard;
@@ -9,6 +6,7 @@ using Orchard.Caching;
 using Orchard.ContentManagement;
 using Orchard.Mvc.Filters;
 using Orchard.UI.Admin;
+#endregion
 
 namespace Mod.CookieConsent.Filters {
     public class ScriptFilter : FilterProvider, IResultFilter {
@@ -22,6 +20,7 @@ namespace Mod.CookieConsent.Filters {
             _wca = wca;
         }
 
+        #region IResultFilter Members
         public void OnResultExecuted(ResultExecutedContext filterContext) { }
 
         public void OnResultExecuting(ResultExecutingContext filterContext) {
@@ -30,22 +29,23 @@ namespace Mod.CookieConsent.Filters {
             }
 
             // should only run on a full view rendering result
-            if (!(filterContext.Result is ViewResult))
+            if (!(filterContext.Result is ViewResult)) {
                 return;
-
-            var script = _cacheManager.Get("Mod.CookieConsent.Script",
-                              ctx => {
-                                  ctx.Monitor(_signals.When("Mod.CookieConsent.Changed"));
-                                  var settings = _wca.GetContext().CurrentSite.As<CookieConsentSettingsPart>();
-                                  return settings.BuildScript();
-                              });
-
-            if (String.IsNullOrEmpty(script))
+            }
+            var script = _cacheManager.Get(Constants.ModCookieConsentCacheKey,
+                ctx => {
+                    ctx.Monitor(_signals.When(Constants.ModCookieConsentChanged));
+                    var settings = _wca.GetContext()
+                        .CurrentSite.As<CookieConsentSettingsPart>();
+                    return settings.BuildScript();
+                });
+            if (string.IsNullOrEmpty(script)) {
                 return;
-
+            }
             var context = _wca.GetContext();
             var tail = context.Layout.Tail;
             tail.Add(new MvcHtmlString(script));
         }
+        #endregion
     }
 }
