@@ -1,22 +1,18 @@
 ﻿#region Using
 using System.Web.Mvc;
-using Mod.CookieConsent.Models;
+using Mod.CookieConsent.Services;
 using Orchard;
-using Orchard.Caching;
-using Orchard.ContentManagement;
 using Orchard.Mvc.Filters;
 using Orchard.UI.Admin;
 #endregion
 
 namespace Mod.CookieConsent.Filters {
     public class ScriptFilter : FilterProvider, IResultFilter {
-        private readonly ICacheManager _cacheManager;
-        private readonly ISignals _signals;
+        private readonly ICacheService _cacheService;
         private readonly IWorkContextAccessor _wca;
 
-        public ScriptFilter(ICacheManager cacheManager, ISignals signals, IWorkContextAccessor wca) {
-            _cacheManager = cacheManager;
-            _signals = signals;
+        public ScriptFilter(ICacheService cacheService, IWorkContextAccessor wca) {
+            _cacheService = cacheService;
             _wca = wca;
         }
 
@@ -32,19 +28,15 @@ namespace Mod.CookieConsent.Filters {
             if (!(filterContext.Result is ViewResult)) {
                 return;
             }
-            var script = _cacheManager.Get(Constants.ModCookieConsentCacheKey,
-                ctx => {
-                    ctx.Monitor(_signals.When(Constants.ModCookieConsentChanged));
-                    var settings = _wca.GetContext()
-                        .CurrentSite.As<CookieConsentSettingsPart>();
-                    return settings.BuildScript();
-                });
-            if (string.IsNullOrEmpty(script)) {
+
+            var cacheModel = _cacheService.GetData();
+            if (string.IsNullOrEmpty(cacheModel.Script)) {
                 return;
             }
+
             var context = _wca.GetContext();
             var tail = context.Layout.Tail;
-            tail.Add(new MvcHtmlString(script));
+            tail.Add(new MvcHtmlString(cacheModel.Script));
         }
         #endregion
     }

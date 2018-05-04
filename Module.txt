@@ -2,7 +2,7 @@ Name: BI CookieConsent
 AntiForgery: enabled
 Author: Orchardizer
 Website: https://github.com/BusinessIntegrations/Mod.CookieConsent
-Version: 2.0.247
+Version: 2.0.252
 OrchardVersion: 1.10.2
 Tags: Cookie Consent, Site Essentials
 Description: Adds the cookie consent button (to comply with EU law) by SilkTide. Modified by Business Integrations.

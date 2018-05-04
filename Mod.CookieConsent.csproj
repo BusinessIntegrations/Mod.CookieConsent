@@ -25,6 +25,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,7 +69,6 @@
     <Content Include="Styles\Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
     <Content Include="Module.txt" />
-    <Content Include="Placement.info" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -77,18 +77,24 @@
       <Name>Orchard.Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Drivers\CookieConsentSettingsPartDriver.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Filters\ScriptFilter.cs" />
     <Compile Include="Handlers\CookieConsentSettingsPartHandler.cs" />
     <Compile Include="Models\CookieConsentSettingsPart.cs" />
+    <Compile Include="Models\ICookieConsentSettingsPart.cs" />
+    <Compile Include="Permissions.cs" />
+    <Compile Include="Services\CacheModel.cs" />
+    <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\ICacheModel.cs" />
+    <Compile Include="Services\ICacheService.cs" />
+    <Compile Include="ViewModels\CookieConsentSettingsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\EditorTemplates\Parts\CookieConsentSettingsPart.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
