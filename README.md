@@ -19,3 +19,8 @@ Maintained by Harry Westbrook
    * Added an Enabled flag in settings to allow this functionality to be toggled on/off.
    * Code tidy
    * Update readme.md
+2. Introduced Controller 2018-05-04
+   * Amended module to use admin menu / controller instead of driver / site settings menu.
+   * Added permission in order to view menu / manage settings.
+   * Added basic caching of business data. 
+   * Rationalised string constants, updated module version, updated placement info, general code tidy etc.
